@@ -1,0 +1,13 @@
+CLAUDE.md
+
+# Node
+node_modules/
+dist/
+.env
+.env.local
+
+# Angular
+frontend/.angular/
+
+# OS
+.DS_Store
