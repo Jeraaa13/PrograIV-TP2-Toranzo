@@ -1,0 +1,51 @@
+.page-container {
+  min-height: calc(100vh - 56px);
+  background-color: #f0f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 800px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.fotoUsuario {
+  background-color: #095256;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.fotoUsuario img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffffff;
+}
+
+.camposUsuario {
+  padding: 32px 48px;
+  background-color: #ffffff;
+}
+
+.camposUsuario div {
+  margin-bottom: 12px;
+}
+
+.camposUsuario p {
+  margin: 0;
+  font-size: 15px;
+  color: #333;
+}
+
+.camposUsuario strong {
+  color: #095256;
+  margin-right: 4px;
+}

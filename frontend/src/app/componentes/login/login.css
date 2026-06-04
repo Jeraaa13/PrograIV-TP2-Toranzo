@@ -1,0 +1,68 @@
+.page-container {
+  min-height: calc(100vh - 56px);
+  background-color: #f0f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+}
+
+.surface-card {
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 32px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.surface-card__title {
+  color: #095256;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-actions {
+  margin-top: 24px;
+}
+
+.btn-primary-app {
+  width: 100%;
+  background-color: #095256;
+  color: #ffffff;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary-app:hover:not(:disabled) {
+  background-color: #087f8c;
+}
+
+.btn-primary-app:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-foot {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #555;
+}
+
+.form-foot a {
+  color: #087f8c;
+  text-decoration: none;
+}
+
+.form-foot a:hover {
+  text-decoration: underline;
+}

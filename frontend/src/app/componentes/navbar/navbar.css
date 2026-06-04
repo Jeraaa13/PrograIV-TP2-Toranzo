@@ -14,10 +14,6 @@
   text-decoration: none;
 }
 
-.main-navbar .brand:hover {
-  color: #ffffff;
-}
-
 .nav-links {
   display: flex;
   gap: 24px;

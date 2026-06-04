@@ -1,1 +1,63 @@
-<p>login works!</p>
+<div class="page-container">
+  <div class="surface-card">
+    <h2 class="surface-card__title">Iniciar sesión</h2>
+
+    <form [formGroup]="miFormulario" (ngSubmit)="enviarForm()">
+      <div class="col">
+        <div class="form-group">
+          <label class="form-label" for="mail">Mail</label>
+          <input type="email" class="form-control" id="mail" formControlName="mail" />
+          @if (mail?.invalid && (mail?.dirty || mail?.touched)) {
+            <small class="text-danger">
+              @if (mail?.hasError('required')) {
+                El mail es requerido
+              }
+              @if (mail?.hasError('email')) {
+                El mail debe ser un correo electrónico válido
+              }
+            </small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="clave">Clave</label>
+          <input type="password" class="form-control" id="clave" formControlName="clave" />
+          @if (clave?.invalid && (clave?.dirty || clave?.touched)) {
+            <small class="text-danger">
+              @if (clave?.hasError('required')) {
+                La clave es requerida
+              }
+              @if (clave?.hasError('minlength')) {
+                Mínimo {{ clave?.getError('minlength').requiredLength }} caracteres (ingresaste
+                {{ clave?.getError('minlength').actualLength }})
+              }
+              @if (clave?.hasError('pattern')) {
+                Debe contener al menos una mayúscula, un número y un carácter especial
+              }
+            </small>
+          }
+        </div>
+
+        <!--  <div class="form-actions">
+        <button class="btn-app btn-primary-app" type="button" (click)="accesoRapido(1)">
+          Usuario Uno
+        </button>
+        <button class="btn-app btn-primary-app" type="button" (click)="accesoRapido(2)">
+          Usuario Dos
+        </button>
+        <button class="btn-app btn-primary-app" type="button" (click)="accesoRapido(3)">
+          Usuario Tres
+        </button>
+      </div> -->
+
+        <div class="form-actions">
+          <button class="btn-app btn-primary-app" type="submit" [disabled]="miFormulario.invalid">
+            Logearse
+          </button>
+        </div>
+
+        <p class="form-foot">¿No tenés cuenta? <a routerLink="/registro">Registrate</a></p>
+      </div>
+    </form>
+  </div>
+</div>
