@@ -2,9 +2,17 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 
+let app;
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
-  await app.listen(process.env.PORT ?? 3000);
+  await app.init();
+  return app;
 }
-bootstrap();
+
+export default async function handler(req, res) {
+  const nestApp = await bootstrap();
+  const httpAdapter = nestApp.getHttpAdapter();
+  httpAdapter.getInstance()(req, res);
+}
