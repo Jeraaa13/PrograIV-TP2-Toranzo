@@ -15,8 +15,8 @@ export class UsuariosService {
     return usuarioCreado;
   }
 
-  async findOne(mail: string) {
-    const usuario = await this.usuarioModel.findOne({ correo: mail });
+  async findOne(correo: string) {
+    const usuario = await this.usuarioModel.findOne({ correo: correo });
     return usuario;
   }
 }

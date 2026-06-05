@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { registroDTO } from '../usuarios/registro.dto';
 import { UsuariosService } from '../usuarios/usuarios.service';
 import * as bcrypt from 'bcrypt';
@@ -13,14 +13,14 @@ export class AuthService {
     return this.usuarioService.create(dto);
   }
 
-  async login(mail: string, clave: string) {
-    const usuario = await this.usuarioService.findOne(mail);
-    if (!usuario) return null;
+  async login(correo: string, clave: string) {
+    const usuario = await this.usuarioService.findOne(correo);
+    if (!usuario) throw new UnauthorizedException('Credenciales invalidas');
 
     if (await bcrypt.compare(clave, usuario.clave)) {
       const { clave: _, ...usuarioSinClave } = usuario.toObject();
       return usuarioSinClave;
     }
-    return null;
+    throw new UnauthorizedException('Credenciales invalidas');
   }
 }

@@ -75,15 +75,15 @@
         </div>
         <div class="col">
           <div class="form-group">
-            <label class="form-label" for="mail">Mail</label>
-            <input type="email" class="form-control" id="mail" formControlName="mail" />
-            @if (mail?.invalid && (mail?.dirty || mail?.touched)) {
+            <label class="form-label" for="correo">Correo</label>
+            <input type="email" class="form-control" id="correo" formControlName="correo" />
+            @if (correo?.invalid && (correo?.dirty || correo?.touched)) {
               <small class="text-danger">
-                @if (mail?.hasError('required')) {
-                  El mail es requerido
+                @if (correo?.hasError('required')) {
+                  El correo es requerido
                 }
-                @if (mail?.hasError('email')) {
-                  El mail debe ser un correo electrónico válido
+                @if (correo?.hasError('email')) {
+                  El correo debe ser un correo electrónico válido
                 }
               </small>
             }

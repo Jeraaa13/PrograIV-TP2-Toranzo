@@ -60,7 +60,7 @@ export class Registro implements OnInit {
           Validators.required,
         ]),
         fechaNacimiento: new FormControl('', [Validators.required, mayorDeEdad]),
-        mail: new FormControl('', [Validators.email, Validators.required]),
+        correo: new FormControl('', [Validators.email, Validators.required]),
         clave: new FormControl('', [
           Validators.minLength(8),
           Validators.required,
@@ -91,8 +91,8 @@ export class Registro implements OnInit {
   get fechaNacimiento() {
     return this.miFormulario.get('fechaNacimiento');
   }
-  get mail() {
-    return this.miFormulario.get('mail');
+  get correo() {
+    return this.miFormulario.get('correo');
   }
   get clave() {
     return this.miFormulario.get('clave');
