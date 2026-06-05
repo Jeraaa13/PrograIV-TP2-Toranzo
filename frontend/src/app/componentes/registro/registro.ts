@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { inject } from '@angular/core';
+import { Auth } from '../../servicios/auth';
+import Swal from 'sweetalert2';
 
 function mayorDeEdad(control: AbstractControl) {
   const valor = control.value;
@@ -41,6 +43,7 @@ function clavesCoinciden(group: AbstractControl) {
 export class Registro implements OnInit {
   miFormulario!: FormGroup;
   private router = inject(Router);
+  private auth = inject(Auth);
   ngOnInit(): void {
     this.miFormulario = new FormGroup(
       {
@@ -109,5 +112,23 @@ export class Registro implements OnInit {
     if (this.miFormulario.invalid) return;
 
     const usuario = this.miFormulario.value;
+    this.auth.registro(usuario).subscribe({
+      next: (respuesta) => {
+        Swal.fire({
+          title: 'Registrado!',
+          text: 'Usted ha sido registrado correctamente!',
+          icon: 'success',
+        });
+        this.router.navigateByUrl('/publicaciones');
+      },
+      error: (err) => {
+        Swal.fire({
+          title: 'Error',
+          text: 'Error al registrar al usuario',
+          icon: 'error',
+        });
+        console.error('Error al registrar al usuario', err);
+      },
+    });
   }
 }

@@ -7,6 +7,7 @@ let app;
 async function bootstrap() {
   app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.enableCors();
   await app.init();
   return app;
 }
