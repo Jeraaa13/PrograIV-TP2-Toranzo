@@ -17,3 +17,7 @@ export default async function handler(req, res) {
   const httpAdapter = nestApp.getHttpAdapter();
   httpAdapter.getInstance()(req, res);
 }
+
+if (!process.env.VERCEL) {
+  bootstrap().then((app) => app.listen(3000));
+}

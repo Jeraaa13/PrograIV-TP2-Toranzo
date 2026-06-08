@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
@@ -15,6 +15,7 @@ export class Login {
   private auth = inject(Auth);
   miFormulario!: FormGroup;
   private router = inject(Router);
+
   ngOnInit(): void {
     this.miFormulario = new FormGroup({
       correo: new FormControl('', [Validators.email, Validators.required]),
@@ -54,6 +55,7 @@ export class Login {
     const usuario = this.miFormulario.value;
     this.auth.login(usuario.correo, usuario.clave).subscribe({
       next: (respuesta) => {
+        this.auth.guardarToken(respuesta.access_token);
         Swal.fire({
           title: 'Logeado!',
           text: 'Usted ha sido logeado correctamente!',

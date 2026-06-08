@@ -2,14 +2,18 @@
   <a class="brand" routerLink="/">Red Social</a>
 
   <div class="nav-links">
-    <a
-      routerLink="/publicaciones"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >Publicaciones</a
-    >
-    <a routerLink="/mi-perfil" routerLinkActive="active">Mi perfil</a>
-    <a routerLink="/login" routerLinkActive="active">Login</a>
-    <a routerLink="/registro" routerLinkActive="active">Registro</a>
+    @if (auth.autenticado()) {
+      <a
+        routerLink="/publicaciones"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Publicaciones</a
+      >
+      <a routerLink="/mi-perfil" routerLinkActive="active">Mi perfil</a>
+      <a style="cursor: pointer" (click)="auth.logout()">Cerrar sesión</a>
+    } @else {
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <a routerLink="/registro" routerLinkActive="active">Registro</a>
+    }
   </div>
 </nav>
