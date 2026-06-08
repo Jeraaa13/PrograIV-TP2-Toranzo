@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { PublicacionesService } from './publicaciones.service';
-import { AuthGuard } from 'src/guards/auth/auth.guard';
+import { AuthGuard } from '../guards/auth/auth.guard';
 import { CrearPublicacionDto } from './publicacion.dto';
 
 @Controller('publicaciones')
