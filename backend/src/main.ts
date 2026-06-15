@@ -3,15 +3,18 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 
-let app;
+let cachedApp;
 
 async function bootstrap() {
-  app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
-  app.enableCors();
-  app.use(cookieParser());
-  await app.init();
-  return app;
+  if (cachedApp) return cachedApp;
+  cachedApp = await NestFactory.create(AppModule);
+  cachedApp.useGlobalPipes(
+    new ValidationPipe({ whitelist: true, transform: true }),
+  );
+  cachedApp.enableCors();
+  cachedApp.use(cookieParser());
+  await cachedApp.init();
+  return cachedApp;
 }
 
 export default async function handler(req, res) {
