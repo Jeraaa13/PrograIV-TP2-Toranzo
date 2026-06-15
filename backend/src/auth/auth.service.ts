@@ -7,7 +7,7 @@ import { registroDTO } from '../usuarios/registro.dto';
 import { UsuariosService } from '../usuarios/usuarios.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class AuthService {

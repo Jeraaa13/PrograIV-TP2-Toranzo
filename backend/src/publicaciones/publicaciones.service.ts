@@ -8,7 +8,7 @@ import { Model } from 'mongoose';
 import { Publicacion } from './publicacion.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { CrearPublicacionDto } from './publicacion.dto';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class PublicacionesService {
