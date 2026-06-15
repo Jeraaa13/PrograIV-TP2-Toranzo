@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'publicaciones', pathMatch: 'full' },
+  { path: '', redirectTo: 'registro', pathMatch: 'full' },
   {
     path: 'registro',
     loadComponent: () => import('./componentes/registro/registro').then((m) => m.Registro),

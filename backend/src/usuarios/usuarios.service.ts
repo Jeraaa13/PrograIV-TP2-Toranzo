@@ -19,4 +19,8 @@ export class UsuariosService {
     const usuario = await this.usuarioModel.findOne({ correo: correo });
     return usuario;
   }
+
+  async findById(id: string) {
+    return await this.usuarioModel.findById(id).select('-clave');
+  }
 }

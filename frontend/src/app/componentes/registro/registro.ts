@@ -44,6 +44,13 @@ export class Registro implements OnInit {
   miFormulario!: FormGroup;
   private router = inject(Router);
   private auth = inject(Auth);
+  archivoSeleccionado: File | null = null;
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.archivoSeleccionado = input.files?.[0] ?? null;
+  }
+
   ngOnInit(): void {
     this.miFormulario = new FormGroup(
       {
@@ -56,7 +63,7 @@ export class Registro implements OnInit {
           Validators.required,
         ]),
         nombreUsuario: new FormControl('', [
-          Validators.pattern('^[a-zA-ZÁÉÍÓÚáéíóúÑñ]+$'),
+          Validators.pattern('^[a-zA-Z1234567890]+$'),
           Validators.required,
         ]),
         fechaNacimiento: new FormControl('', [Validators.required, mayorDeEdad]),
@@ -71,9 +78,8 @@ export class Registro implements OnInit {
         repiteClave: new FormControl('', [Validators.required]),
         descripcion: new FormControl('', [
           Validators.pattern('^[a-zA-ZÁÉÍÓÚáéíóúÑñ.,1234567890 ]+$'),
-          Validators.required,
         ]),
-        imagenPerfil: new FormControl('', [Validators.required]),
+        imagenPerfil: new FormControl(''),
       },
       { validators: clavesCoinciden },
     );
@@ -112,19 +118,19 @@ export class Registro implements OnInit {
     if (this.miFormulario.invalid) return;
 
     const usuario = this.miFormulario.value;
-    this.auth.registro(usuario).subscribe({
+    this.auth.registro(this.miFormulario.value, this.archivoSeleccionado).subscribe({
       next: (respuesta) => {
         Swal.fire({
           title: 'Registrado!',
           text: 'Usted ha sido registrado correctamente!',
           icon: 'success',
         });
-        this.router.navigateByUrl('/publicaciones');
+        this.router.navigateByUrl('/login');
       },
       error: (err) => {
         Swal.fire({
           title: 'Error',
-          text: 'Error al registrar al usuario',
+          text: err.error?.message || 'No se pudo conectar con el servidor',
           icon: 'error',
         });
         console.error('Error al registrar al usuario', err);

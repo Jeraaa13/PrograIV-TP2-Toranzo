@@ -1,21 +1,46 @@
-import { Controller, Get, Post, Body, Param, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  HttpCode,
+  UseGuards,
+  Request,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
 import { registroDTO } from '../usuarios/registro.dto';
 import { AuthService } from './auth.service';
 import { LoginDTO } from '../usuarios/login.dto';
+import { AuthGuard } from '../guards/auth/auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('registro')
-  @HttpCode(201)
-  registro(@Body() registroDTO: registroDTO) {
-    return this.authService.registro(registroDTO);
+  @UseInterceptors(
+    FileInterceptor('imagenPerfil', { storage: memoryStorage() }),
+  )
+  registro(
+    @Body() registroDTO: registroDTO,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    return this.authService.registro(registroDTO, file);
   }
 
   @Post('login')
-  @HttpCode(201)
+  @HttpCode(200)
   login(@Body() loginDTO: LoginDTO) {
     return this.authService.login(loginDTO.correo, loginDTO.clave);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('perfil')
+  perfil(@Request() req) {
+    return this.authService.findById(req.user.sub);
   }
 }

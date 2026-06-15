@@ -1,14 +1,21 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
 
 @Schema()
 export class Publicacion {
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+  })
   titulo: string;
   @Prop({ required: true })
   descripcion: string;
   @Prop()
   imagenUrl: string;
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Usuario',
+  })
   publicadaPor: string;
   @Prop({ default: [] })
   meGustas: string[];

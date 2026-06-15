@@ -1,29 +1,48 @@
 <div class="page-container">
-  <div class="card">
-    <div class="fotoUsuario">
-      <img src="/images/messigod.webp" />
-    </div>
-
-    <div class="camposUsuario">
-      <div class="nombre">
-        <p><strong>Nombre:</strong>Pepito</p>
-      </div>
-      <div class="apellido">
-        <p><strong>Apellido:</strong>Pepa</p>
+  @if (usuario()) {
+    <div class="card">
+      <div class="fotoUsuario">
+        <img [src]="usuario()!.imagenPerfil || 'avatar.png'" />
       </div>
 
-      <div class="correo">
-        <p><strong>Correo:</strong>pepito@pepa.com</p>
-      </div>
-      <div class="nombreUsuario">
-        <p><strong>nombreUsuario:</strong>pepitoPepa10</p>
-      </div>
-      <div class="descripcion">
-        <p><strong>Descripcion:</strong>Soy pepito pepa fan de Messi VAMOS!!</p>
-      </div>
-      <div class="fechaNacimiento">
-        <p><strong>Fecha de Nacimiento:</strong>10/10/1990</p>
+      <div class="camposUsuario">
+        <div class="nombre">
+          <p><strong>Nombre:</strong>{{ usuario()!.nombre }}</p>
+        </div>
+        <div class="apellido">
+          <p><strong>Apellido:</strong>{{ usuario()!.apellido }}</p>
+        </div>
+
+        <div class="correo">
+          <p><strong>Correo:</strong>{{ usuario()!.correo }}</p>
+        </div>
+        <div class="nombreUsuario">
+          <p><strong>Nombre de Usuario:</strong>{{ usuario()!.nombreUsuario }}</p>
+        </div>
+        <div class="descripcion">
+          <p><strong>Descripcion:</strong>{{ usuario()!.descripcion }}</p>
+        </div>
+        <div class="fechaNacimiento">
+          <p>
+            <strong>Fecha de Nacimiento:</strong
+            >{{ usuario()!.fechaNacimiento | date: 'dd/MM/yyyy' }}
+          </p>
+        </div>
       </div>
     </div>
-  </div>
+
+    <div class="mis-publicaciones">
+      <h3>Mis últimas publicaciones</h3>
+      @for (pub of misPublicaciones(); track pub._id) {
+        <div class="card">
+          <div class="texto">{{ pub.titulo }}</div>
+          <div class="descripcion">{{ pub.descripcion }}</div>
+          @if (pub.imagenUrl) {
+            <img class="imagen-pub" [src]="pub.imagenUrl" />
+          }
+          <div class="boton-like">{{ pub.meGustas.length }} me gusta</div>
+        </div>
+      }
+    </div>
+  }
 </div>

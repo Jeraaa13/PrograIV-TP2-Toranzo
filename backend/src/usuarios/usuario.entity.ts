@@ -8,7 +8,7 @@ export class Usuario {
   @Prop({ required: true })
   apellido: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   correo: string;
 
   @Prop({ required: true })
@@ -20,10 +20,10 @@ export class Usuario {
   @Prop({ required: true })
   fechaNacimiento: Date;
 
-  @Prop({ required: true })
+  @Prop()
   descripcion: string;
 
-  @Prop({ required: true })
+  @Prop()
   imagenPerfil: string;
 
   @Prop({ required: true, default: 'usuario' })

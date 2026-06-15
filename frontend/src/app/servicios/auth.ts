@@ -19,8 +19,22 @@ export class Auth {
     }
   }
 
-  registro(usuario: Usuario) {
-    return this.http.post(`${environment.apiUrl}/auth/registro`, usuario);
+  registro(datos: any, imagen: File | null) {
+    const formData = new FormData();
+    formData.append('nombre', datos.nombre);
+    formData.append('apellido', datos.apellido);
+    formData.append('correo', datos.correo);
+    formData.append('clave', datos.clave);
+    formData.append('nombreUsuario', datos.nombreUsuario);
+    formData.append('fechaNacimiento', datos.fechaNacimiento.toString());
+    if (datos.descripcion) {
+      formData.append('descripcion', datos.descripcion);
+    }
+    if (imagen) {
+      formData.append('imagenPerfil', imagen);
+    }
+
+    return this.http.post(`${environment.apiUrl}/auth/registro`, formData);
   }
 
   login(correo: string, clave: string) {
@@ -40,5 +54,9 @@ export class Auth {
     localStorage.removeItem('token');
     this.autenticado.set(false);
     this.router.navigateByUrl('/login');
+  }
+
+  getPerfil() {
+    return this.http.get<Usuario>(`${environment.apiUrl}/auth/perfil`);
   }
 }

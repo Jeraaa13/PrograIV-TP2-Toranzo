@@ -1,177 +1,184 @@
-<div class="page-container">
-  <div class="surface-card surface-card--wide">
-    <h2 class="surface-card__title">Crear cuenta</h2>
+<div class="registro-split">
+  <div class="registro-lado-imagen">
+    <img src="toro-blanco.svg" />
+  </div>
+  <div class="registro-lado-form">
+    <div class="surface-card surface-card--wide">
+      <h2 class="surface-card__title">Crear cuenta</h2>
 
-    <form [formGroup]="miFormulario" (ngSubmit)="enviarForm()">
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label class="form-label" for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" formControlName="nombre" />
-            @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)) {
-              <small class="text-danger">
-                @if (nombre?.hasError('required')) {
-                  El nombre es requerido
-                }
-                @if (nombre?.hasError('pattern')) {
-                  El nombre debe contener solo letras y espacios
-                }
-              </small>
-            }
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="apellido">Apellido</label>
-            <input type="text" class="form-control" id="apellido" formControlName="apellido" />
-            @if (apellido?.invalid && (apellido?.dirty || apellido?.touched)) {
-              <small class="text-danger">
-                @if (apellido?.hasError('required')) {
-                  El apellido es requerido
-                }
-                @if (apellido?.hasError('pattern')) {
-                  El apellido debe contener solo letras y espacios
-                }
-              </small>
-            }
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="nombreUsuario">Nombre de Usuario</label>
-            <input
-              type="text"
-              class="form-control"
-              id="nombreUsuario"
-              formControlName="nombreUsuario"
-            />
-            @if (nombreUsuario?.invalid && (nombreUsuario?.dirty || nombreUsuario?.touched)) {
-              <small class="text-danger">
-                @if (nombreUsuario?.hasError('required')) {
-                  El nombre de usuario es requerido
-                }
-                @if (nombreUsuario?.hasError('pattern')) {
-                  El nombre de usuario debe contener solo letras
-                }
-              </small>
-            }
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="fechaNacimiento">Fecha de nacimiento</label>
-            <input
-              type="date"
-              class="form-control"
-              id="fechaNacimiento"
-              formControlName="fechaNacimiento"
-            />
-            @if (fechaNacimiento?.invalid && (fechaNacimiento?.dirty || fechaNacimiento?.touched)) {
-              <small class="text-danger">
-                @if (fechaNacimiento?.hasError('menorDeEdad')) {
-                  Debe ser mayor de 18 años
-                }
+      <form [formGroup]="miFormulario" (ngSubmit)="enviarForm()">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label class="form-label" for="nombre">Nombre</label>
+              <input type="text" class="form-control" id="nombre" formControlName="nombre" />
+              @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)) {
+                <small class="text-danger">
+                  @if (nombre?.hasError('required')) {
+                    El nombre es requerido
+                  }
+                  @if (nombre?.hasError('pattern')) {
+                    El nombre debe contener solo letras y espacios
+                  }
+                </small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="apellido">Apellido</label>
+              <input type="text" class="form-control" id="apellido" formControlName="apellido" />
+              @if (apellido?.invalid && (apellido?.dirty || apellido?.touched)) {
+                <small class="text-danger">
+                  @if (apellido?.hasError('required')) {
+                    El apellido es requerido
+                  }
+                  @if (apellido?.hasError('pattern')) {
+                    El apellido debe contener solo letras y espacios
+                  }
+                </small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="nombreUsuario">Nombre de Usuario</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombreUsuario"
+                formControlName="nombreUsuario"
+              />
+              @if (nombreUsuario?.invalid && (nombreUsuario?.dirty || nombreUsuario?.touched)) {
+                <small class="text-danger">
+                  @if (nombreUsuario?.hasError('required')) {
+                    El nombre de usuario es requerido
+                  }
+                  @if (nombreUsuario?.hasError('pattern')) {
+                    El nombre de usuario debe contener solo letras o numeros
+                  }
+                </small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fechaNacimiento">Fecha de nacimiento</label>
+              <input
+                type="date"
+                class="form-control"
+                id="fechaNacimiento"
+                formControlName="fechaNacimiento"
+              />
+              @if (
+                fechaNacimiento?.invalid && (fechaNacimiento?.dirty || fechaNacimiento?.touched)
+              ) {
+                <small class="text-danger">
+                  @if (fechaNacimiento?.hasError('menorDeEdad')) {
+                    Debe ser mayor de 18 años
+                  }
 
-                @if (fechaNacimiento?.hasError('required')) {
-                  La fecha de nacimiento es requerida
-                }
-              </small>
-            }
+                  @if (fechaNacimiento?.hasError('required')) {
+                    La fecha de nacimiento es requerida
+                  }
+                </small>
+              }
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label class="form-label" for="correo">Correo</label>
+              <input type="email" class="form-control" id="correo" formControlName="correo" />
+              @if (correo?.invalid && (correo?.dirty || correo?.touched)) {
+                <small class="text-danger">
+                  @if (correo?.hasError('required')) {
+                    El correo es requerido
+                  }
+                  @if (correo?.hasError('email')) {
+                    El correo debe ser un correo electrónico válido
+                  }
+                </small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="clave">Clave</label>
+              <input type="password" class="form-control" id="clave" formControlName="clave" />
+              @if (clave?.invalid && (clave?.dirty || clave?.touched)) {
+                <small class="text-danger">
+                  @if (clave?.hasError('required')) {
+                    La clave es requerida
+                  }
+                  @if (clave?.hasError('minlength')) {
+                    Mínimo {{ clave?.getError('minlength').requiredLength }} caracteres (ingresaste
+                    {{ clave?.getError('minlength').actualLength }})
+                  }
+                  @if (clave?.hasError('pattern')) {
+                    Debe contener al menos una mayúscula, un número y un carácter especial
+                  }
+                </small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="repiteClave">Repetir clave</label>
+              <input
+                type="password"
+                class="form-control"
+                id="repiteClave"
+                formControlName="repiteClave"
+              />
+              @if (repiteClave?.invalid && (repiteClave?.dirty || repiteClave?.touched)) {
+                <small class="text-danger">
+                  @if (repiteClave?.hasError('required')) {
+                    Debés repetir la clave
+                  }
+                </small>
+              }
+              @if (
+                miFormulario.hasError('noCoincide') && (repiteClave?.touched || repiteClave?.dirty)
+              ) {
+                <small class="text-danger">Las claves no coinciden</small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="descripcion">Descripcion</label>
+              <input
+                type="text"
+                class="form-control"
+                id="descripcion"
+                formControlName="descripcion"
+              />
+              @if (descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)) {
+                <small class="text-danger">
+                  @if (descripcion?.hasError('required')) {
+                    La descripcion es requerida
+                  }
+                  @if (descripcion?.hasError('pattern')) {
+                    La descripcion debe contener solo letras, numeros y puntuacion
+                  }
+                </small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="imagenPerfil">Foto de perfil</label>
+              <input
+                type="file"
+                class="form-control"
+                id="imagenPerfil"
+                (change)="onFileSelected($event)"
+              />
+              @if (imagenPerfil?.invalid && (imagenPerfil?.dirty || imagenPerfil?.touched)) {
+                <small class="text-danger">
+                  @if (imagenPerfil?.hasError('required')) {
+                    La imagen es requerida
+                  }
+                </small>
+              }
+            </div>
           </div>
         </div>
-        <div class="col">
-          <div class="form-group">
-            <label class="form-label" for="correo">Correo</label>
-            <input type="email" class="form-control" id="correo" formControlName="correo" />
-            @if (correo?.invalid && (correo?.dirty || correo?.touched)) {
-              <small class="text-danger">
-                @if (correo?.hasError('required')) {
-                  El correo es requerido
-                }
-                @if (correo?.hasError('email')) {
-                  El correo debe ser un correo electrónico válido
-                }
-              </small>
-            }
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="clave">Clave</label>
-            <input type="password" class="form-control" id="clave" formControlName="clave" />
-            @if (clave?.invalid && (clave?.dirty || clave?.touched)) {
-              <small class="text-danger">
-                @if (clave?.hasError('required')) {
-                  La clave es requerida
-                }
-                @if (clave?.hasError('minlength')) {
-                  Mínimo {{ clave?.getError('minlength').requiredLength }} caracteres (ingresaste
-                  {{ clave?.getError('minlength').actualLength }})
-                }
-                @if (clave?.hasError('pattern')) {
-                  Debe contener al menos una mayúscula, un número y un carácter especial
-                }
-              </small>
-            }
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="repiteClave">Repetir clave</label>
-            <input
-              type="password"
-              class="form-control"
-              id="repiteClave"
-              formControlName="repiteClave"
-            />
-            @if (repiteClave?.invalid && (repiteClave?.dirty || repiteClave?.touched)) {
-              <small class="text-danger">
-                @if (repiteClave?.hasError('required')) {
-                  Debés repetir la clave
-                }
-              </small>
-            }
-            @if (
-              miFormulario.hasError('noCoincide') && (repiteClave?.touched || repiteClave?.dirty)
-            ) {
-              <small class="text-danger">Las claves no coinciden</small>
-            }
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="descripcion">Descripcion</label>
-            <input
-              type="text"
-              class="form-control"
-              id="descripcion"
-              formControlName="descripcion"
-            />
-            @if (descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)) {
-              <small class="text-danger">
-                @if (descripcion?.hasError('required')) {
-                  La descripcion es requerida
-                }
-                @if (descripcion?.hasError('pattern')) {
-                  La descripcion debe contener solo letras, numeros y puntuacion
-                }
-              </small>
-            }
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="imagenPerfil">Foto de perfil</label>
-            <input
-              type="file"
-              class="form-control"
-              id="imagenPerfil"
-              formControlName="imagenPerfil"
-            />
-            @if (imagenPerfil?.invalid && (imagenPerfil?.dirty || imagenPerfil?.touched)) {
-              <small class="text-danger">
-                @if (imagenPerfil?.hasError('required')) {
-                  La imagen es requerida
-                }
-              </small>
-            }
-          </div>
+
+        <div class="form-actions">
+          <button class="btn-app btn-primary-app" type="submit" [disabled]="miFormulario.invalid">
+            Registrar
+          </button>
         </div>
-      </div>
+      </form>
 
-      <div class="form-actions">
-        <button class="btn-app btn-primary-app" type="submit" [disabled]="miFormulario.invalid">
-          Registrar
-        </button>
-      </div>
-    </form>
-
-    <p class="form-foot">¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></p>
+      <p class="form-foot">¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></p>
+    </div>
   </div>
 </div>

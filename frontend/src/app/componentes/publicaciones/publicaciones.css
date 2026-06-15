@@ -1,54 +1,98 @@
 .publicaciones-container {
-  max-width: 600px;
+  max-width: 700px;
   margin: 32px auto;
-  padding: 0 16px;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .card {
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  background-color: #242424;
+  border: 1px solid #383838;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.info-autor {
+  display: flex;
+  align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
+}
+
+.boton-eliminar {
+  background-color: transparent;
+  border: none;
+  color: #aaaaaa;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.boton-eliminar:hover {
+  background-color: #3a2020;
+  color: #e74c3c;
 }
 
 .fotoUsuario img {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .nombreUsuario {
   font-weight: bold;
-  color: #095256;
-  font-size: 15px;
+  color: #ffffff;
+  font-size: 16px;
 }
 
 .texto {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.descripcion {
   font-size: 15px;
-  color: #333;
+  color: #dddddd;
+  margin-bottom: 12px;
+}
+
+.imagen-pub {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
   margin-bottom: 12px;
 }
 
 .botones-publicacion {
   display: flex;
   gap: 16px;
-  border-top: 1px solid #eee;
-  padding-top: 8px;
+  border-top: 1px solid #383838;
+  padding-top: 12px;
   margin-top: 8px;
 }
 
 .boton-like,
 .boton-comentarios {
-  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  border: none;
+  color: #aaaaaa;
   font-size: 14px;
   cursor: pointer;
   padding: 4px 8px;
@@ -58,6 +102,133 @@
 
 .boton-like:hover,
 .boton-comentarios:hover {
-  background-color: #f0f4f4;
-  color: #095256;
+  background-color: #3a2020;
+  color: #e74c3c;
+}
+
+.boton-like.liked {
+  color: #e74c3c;
+}
+
+.form-publicacion {
+  background-color: #242424;
+  border: 1px solid #383838;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-publicacion input[type='text'],
+.form-publicacion input:not([type]),
+.form-publicacion textarea {
+  background-color: #1a1a1a;
+  border: 1px solid #383838;
+  border-radius: 6px;
+  color: #ffffff;
+  padding: 10px 12px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.form-publicacion textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.form-publicacion input:focus,
+.form-publicacion textarea:focus {
+  outline: none;
+  border-color: #a01919;
+}
+
+.form-publicacion input[type='file'] {
+  color: #aaaaaa;
+  font-size: 14px;
+}
+
+.form-publicacion input[type='file']::file-selector-button {
+  background-color: #383838;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-publicacion input[type='file']::file-selector-button:hover {
+  background-color: #4a4a4a;
+}
+
+.form-publicacion button {
+  align-self: flex-end;
+  background-color: #a01919;
+  color: #ffffff;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-publicacion button:hover {
+  background-color: #c0392b;
+}
+
+.filtros {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filtros .select {
+  background-color: #242424;
+  color: #ffffff;
+  border: 1px solid #383838;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filtros .select:focus {
+  outline: none;
+  border-color: #a01919;
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.paginacion button {
+  background-color: #a01919;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.paginacion button:hover:not(:disabled) {
+  background-color: #c0392b;
+}
+
+.paginacion button:disabled {
+  background-color: #383838;
+  color: #777777;
+  cursor: not-allowed;
+}
+
+.paginacion span {
+  color: #dddddd;
+  font-size: 14px;
 }

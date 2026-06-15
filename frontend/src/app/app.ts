@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './componentes/navbar/navbar';
+import { Auth } from './servicios/auth';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,7 @@ import { Navbar } from './componentes/navbar/navbar';
   styleUrl: './app.css',
 })
 export class App {
+  auth = inject(Auth);
+
   protected readonly title = signal('frontendtp2');
 }

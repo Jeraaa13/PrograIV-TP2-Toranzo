@@ -1,30 +1,64 @@
-.page-container {
-  min-height: calc(100vh - 56px);
-  background-color: #f0f4f4;
+.registro-split {
+  display: flex;
+  min-height: 100vh;
+}
+
+.registro-lado-imagen {
+  flex: 0 0 35%;
+  background-color: #1a1a1a;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 40px 16px;
+  align-items: center;
+}
+
+.registro-lado-imagen img {
+  width: 90%;
+  max-width: 420px;
+}
+
+.registro-lado-form {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px;
 }
 
 .surface-card {
-  background-color: #ffffff;
+  background-color: #242424;
+  border: 1px solid #383838;
   border-radius: 6px;
   padding: 32px;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .surface-card--wide {
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 .surface-card__title {
-  color: #095256;
+  color: #a01919;
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 24px;
+}
+
+.surface-card .form-label {
+  color: #dddddd;
+}
+
+.surface-card .form-control {
+  background-color: #1a1a1a;
+  border: 1px solid #383838;
+  color: #ffffff;
+}
+
+.surface-card .form-control:focus {
+  background-color: #1a1a1a;
+  border-color: #a01919;
+  color: #ffffff;
+  box-shadow: none;
 }
 
 .form-group {
@@ -38,7 +72,7 @@
 }
 
 .btn-primary-app {
-  background-color: #095256;
+  background-color: #a01919;
   color: #ffffff;
   border: none;
   padding: 8px 24px;
@@ -48,7 +82,7 @@
 }
 
 .btn-primary-app:hover:not(:disabled) {
-  background-color: #087f8c;
+  background-color: #c0392b;
 }
 
 .btn-primary-app:disabled {
@@ -60,11 +94,11 @@
   text-align: center;
   margin-top: 16px;
   font-size: 14px;
-  color: #555;
+  color: #aaaaaa;
 }
 
 .form-foot a {
-  color: #087f8c;
+  color: #e74c3c;
   text-decoration: none;
 }
 

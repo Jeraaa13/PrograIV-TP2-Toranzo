@@ -1,19 +1,59 @@
 <div class="publicaciones-container">
-  <div class="card">
-    <div class="card-body">
-      <div class="header">
-        <div class="fotoUsuario">
-          <img src="/images/messigod.webp" />
-        </div>
-        <div class="nombreUsuario">Pepito Pepa</div>
-      </div>
+  <div class="form-publicacion">
+    <input [(ngModel)]="titulo" placeholder="Título" />
+    <textarea [(ngModel)]="descripcion" placeholder="¿Qué estás pensando?"></textarea>
+    <input type="file" (change)="onFileSelected($event)" />
+    <button (click)="crear()">Publicar</button>
+  </div>
 
-      <div class="texto">Que lindo dia!</div>
-      <div class="imagen-opcional"></div>
-      <div class="botones-publicacion">
-        <div class="boton-like">100 ♡</div>
-        <div class="boton-comentarios">20 comentarios</div>
+  <div class="filtros">
+    <select class="select" [(ngModel)]="ordenActual" (change)="cambiarOrden()">
+      <option value="fechaPublicacion" selected>Mas recientes</option>
+      <option value="meGustas">Mas populares</option>
+    </select>
+  </div>
+
+  @for (pub of publicaciones(); track pub._id) {
+    <div class="card">
+      <div class="card-body">
+        <div class="header">
+          <div class="info-autor">
+            <div class="fotoUsuario">
+              <img [src]="pub.publicadaPor.imagenPerfil || 'avatar.png'" />
+            </div>
+            <div class="nombreUsuario">{{ pub.publicadaPor.nombreUsuario }}</div>
+          </div>
+          @if (pub.publicadaPor._id === miId) {
+            <button class="boton-eliminar" (click)="eliminar(pub)">
+              <i class="bi bi-trash"></i>
+            </button>
+          }
+        </div>
+        <div class="texto">{{ pub.titulo }}</div>
+        <div class="descripcion">{{ pub.descripcion }}</div>
+        @if (pub.imagenUrl) {
+          <img class="imagen-pub" [src]="pub.imagenUrl" />
+        }
+        <div class="botones-publicacion">
+          <button class="boton-like" [class.liked]="yaDioLike(pub)" (click)="toggleLike(pub)">
+            <i
+              class="bi"
+              [class.bi-heart-fill]="yaDioLike(pub)"
+              [class.bi-heart]="!yaDioLike(pub)"
+            ></i>
+            {{ pub.meGustas.length }}
+          </button>
+          <div class="boton-comentarios">0 comentarios</div>
+        </div>
       </div>
     </div>
+  }
+
+  <div class="paginacion">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 0">Anterior</button>
+    <span>Página {{ pagina + 1 }}</span>
+    <button (click)="paginaSiguiente()" [disabled]="(pagina + 1) * limite >= total">
+      Siguiente
+    </button>
   </div>
 </div>

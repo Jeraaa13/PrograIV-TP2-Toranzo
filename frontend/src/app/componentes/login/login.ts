@@ -66,7 +66,7 @@ export class Login {
       error: (err) => {
         Swal.fire({
           title: 'Error',
-          text: 'Error al logear al usuario.',
+          text: err.error?.message || 'No se pudo conectar con el servidor',
           icon: 'error',
         });
         console.error('Error al logear al usuario: ', err);
