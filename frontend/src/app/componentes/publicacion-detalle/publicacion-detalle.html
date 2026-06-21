@@ -1,0 +1,50 @@
+@if (publicacion()) {
+  <div class="detalle">
+    <a class="volver" routerLink="/publicaciones"><- Volver</a>
+    <div class="autor">
+      <img [src]="publicacion()!.publicadaPor.imagenPerfil || 'avatar.png'" />
+      <span>{{ publicacion()!.publicadaPor.nombreUsuario }}</span>
+    </div>
+    <h2>{{ publicacion()!.titulo }}</h2>
+    <p>{{ publicacion()!.descripcion }}</p>
+    @if (publicacion()!.imagenUrl) {
+      <img class="imagen-grande" [src]="publicacion()!.imagenUrl" />
+    }
+  </div>
+
+  <div class="comentarios">
+    <h3>Comentarios</h3>
+    <div class="form-comentario">
+      <textarea [(ngModel)]="nuevoComentario" placeholder="Que estas pensando?"></textarea>
+      <button (click)="comentar()" [disabled]="enviando">Enviar</button>
+    </div>
+    @for (com of comentarios(); track com._id) {
+      <div class="comentario">
+        <strong>{{ com.usuario.nombreUsuario }}</strong>
+
+        @if (editandoId === com._id) {
+          <textarea [(ngModel)]="textoEditado"></textarea>
+          <button
+            (click)="guardarEdicion()"
+            [disabled]="textoEditado === textoOriginal || textoEditado.trim() === ''"
+          >
+            Guardar
+          </button>
+          <button (click)="cancelarEdicion()">Cancelar</button>
+        } @else {
+          <p>{{ com.mensaje }}</p>
+          @if (com.modificado) {
+            <small>(editado)</small>
+          }
+        }
+
+        @if (com.usuario._id === miId && editandoId !== com._id) {
+          <button class="boton-editar" (click)="empezarEdicion(com)">Editar</button>
+        }
+      </div>
+    }
+    <button class="cargar-mas" (click)="cargarMas()" [disabled]="comentarios().length >= total">
+      Cargar Mas
+    </button>
+  </div>
+}

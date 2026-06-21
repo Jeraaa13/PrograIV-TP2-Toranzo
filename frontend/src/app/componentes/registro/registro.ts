@@ -117,7 +117,6 @@ export class Registro implements OnInit {
     this.miFormulario.markAllAsTouched();
     if (this.miFormulario.invalid) return;
 
-    const usuario = this.miFormulario.value;
     this.auth.registro(this.miFormulario.value, this.archivoSeleccionado).subscribe({
       next: (respuesta) => {
         Swal.fire({

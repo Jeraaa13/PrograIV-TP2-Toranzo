@@ -4,6 +4,7 @@ import { Usuario } from '../interfaces/usuario';
 import { environment } from '../../environments/environment';
 import { RespuestaLogin } from '../interfaces/respuesta-login';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +13,12 @@ export class Auth {
   http = inject(HttpClient);
   router = inject(Router);
   autenticado = signal(false);
+  timeoutSesion: any;
 
   constructor() {
     if (this.obtenerToken()) {
       this.autenticado.set(true);
+      this.iniciarContador();
     }
   }
 
@@ -41,22 +44,61 @@ export class Auth {
     return this.http.post<RespuestaLogin>(`${environment.apiUrl}/auth/login`, { correo, clave });
   }
 
-  guardarToken(token: string) {
-    localStorage.setItem('token', token);
-    this.autenticado.set(true);
-  }
-
   obtenerToken() {
     return localStorage.getItem('token');
   }
 
+  getPerfil() {
+    return this.http.get<Usuario>(`${environment.apiUrl}/auth/perfil`);
+  }
+
+  autorizar() {
+    return this.http.post(`${environment.apiUrl}/auth/autorizar`, {});
+  }
+
+  refrescar() {
+    return this.http.post<{ access_token: string }>(`${environment.apiUrl}/auth/refrescar`, {});
+  }
+
+  guardarToken(token: string) {
+    localStorage.setItem('token', token);
+    this.autenticado.set(true);
+    this.iniciarContador();
+  }
+
+  iniciarContador() {
+    clearTimeout(this.timeoutSesion);
+    this.timeoutSesion = setTimeout(
+      () => {
+        this.mostrarModalSesion();
+      },
+      10 * 60 * 1000,
+    );
+  }
+
   logout() {
+    clearTimeout(this.timeoutSesion);
     localStorage.removeItem('token');
     this.autenticado.set(false);
     this.router.navigateByUrl('/login');
   }
 
-  getPerfil() {
-    return this.http.get<Usuario>(`${environment.apiUrl}/auth/perfil`);
+  mostrarModalSesion() {
+    Swal.fire({
+      title: 'Tu sesión está por expirar',
+      text: 'Te quedan 5 minutos. ¿Desea seguir conectado?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Seguir conectado',
+      cancelButtonText: 'Cerrar sesión',
+    }).then((resultado) => {
+      if (resultado.isConfirmed) {
+        this.refrescar().subscribe((respuesta) => {
+          this.guardarToken(respuesta.access_token);
+        });
+      } else {
+        this.logout();
+      }
+    });
   }
 }

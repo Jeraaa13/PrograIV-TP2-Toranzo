@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'registro', pathMatch: 'full' },
+  { path: '', loadComponent: () => import('./componentes/spinner/spinner').then((m) => m.Spinner) },
   {
     path: 'registro',
     loadComponent: () => import('./componentes/registro/registro').then((m) => m.Registro),
@@ -12,11 +13,21 @@ export const routes: Routes = [
   },
   {
     path: 'mi-perfil',
+    canActivate: [authGuard],
     loadComponent: () => import('./componentes/mi-perfil/mi-perfil').then((m) => m.MiPerfil),
   },
   {
     path: 'publicaciones',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./componentes/publicaciones/publicaciones').then((m) => m.Publicaciones),
+  },
+  {
+    path: 'publicacion/:id',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./componentes/publicacion-detalle/publicacion-detalle').then(
+        (m) => m.PublicacionDetalle,
+      ),
   },
 ];

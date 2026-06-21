@@ -1,17 +1,19 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { publicacionesService } from '../../servicios/publicaciones-service';
 import { Publicacion } from '../../interfaces/publicacion';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Auth } from '../../servicios/auth';
+import { Publicacion as PublicacionComponent } from '../publicacion/publicacion';
 
 @Component({
   selector: 'app-publicaciones',
-  imports: [FormsModule],
+  imports: [FormsModule, PublicacionComponent],
   templateUrl: './publicaciones.html',
   styleUrl: './publicaciones.css',
 })
 export class Publicaciones implements OnInit {
+  @ViewChild('inputFile') inputFile!: ElementRef;
   publicaciones = signal<Publicacion[]>([]);
   auth = inject(Auth);
   publicacionesService = inject(publicacionesService);
@@ -23,6 +25,7 @@ export class Publicaciones implements OnInit {
   pagina = 0;
   limite = 5;
   total = 0;
+  enviando = false;
 
   ngOnInit() {
     this.cargarUsuario();
@@ -63,16 +66,21 @@ export class Publicaciones implements OnInit {
   }
 
   crear() {
+    if (this.enviando) return;
+    this.enviando = true;
     this.publicacionesService
       .crearPublicacion(this.titulo, this.descripcion, this.archivoSeleccionado)
       .subscribe({
         next: () => {
           this.cargarPublicaciones();
+          this.enviando = false;
           this.titulo = '';
           this.descripcion = '';
           this.archivoSeleccionado = null;
+          this.inputFile.nativeElement.value = '';
         },
         error: (err) => {
+          this.enviando = false;
           Swal.fire({
             title: 'Error',
             text: err.error?.message,
@@ -82,12 +90,8 @@ export class Publicaciones implements OnInit {
       });
   }
 
-  yaDioLike(pub: Publicacion): boolean {
-    return pub.meGustas.includes(this.miId);
-  }
-
   toggleLike(pub: Publicacion) {
-    if (this.yaDioLike(pub)) {
+    if (pub.meGustas.includes(this.miId)) {
       this.publicacionesService.quitarLike(pub._id).subscribe(() => this.cargarPublicaciones());
     } else {
       this.publicacionesService.darLike(pub._id).subscribe(() => this.cargarPublicaciones());

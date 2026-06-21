@@ -5,8 +5,10 @@ export interface Publicacion {
   titulo: string;
   descripcion: string;
   meGustas: string[];
+  cantidadMeGustas: number;
   publicadaPor: Usuario;
   baja: boolean;
   fechaPublicacion: Date;
   imagenUrl?: string;
+  cantidadComentarios: number;
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { RespuestaPublicaciones } from '../interfaces/respuesta-publicaciones';
+import { Publicacion } from '../interfaces/publicacion';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +40,9 @@ export class publicacionesService {
 
   eliminarPublicacion(idPublicacion: string) {
     return this.http.delete(`${environment.apiUrl}/publicaciones/${idPublicacion}`);
+  }
+
+  getPublicacion(id: string) {
+    return this.http.get<Publicacion>(`${environment.apiUrl}/publicaciones/${id}`);
   }
 }

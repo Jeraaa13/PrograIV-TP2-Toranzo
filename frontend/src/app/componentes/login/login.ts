@@ -23,24 +23,6 @@ export class Login {
     });
   }
 
-  /*
-  accesoRapido(usuario: number) {
-    switch (usuario) {
-      case 1:
-        this.correo.set('messi@correo.com');
-        this.clave.set('Messi1+');
-        break;
-      case 2:
-        this.correo.set('manu@dona.com');
-        this.clave.set('Gino1+');
-        break;
-      default:
-        this.correo.set('admin@admin.com');
-        this.clave.set('Admin1+');
-        break;
-    }
-  }*/
-
   get correo() {
     return this.miFormulario.get('correo');
   }
