@@ -28,7 +28,9 @@ export class AuthService {
 
     const clave = dto.clave;
     dto.clave = await bcrypt.hash(clave, 10);
-    return this.usuarioService.create(dto);
+    const usuarioCreado = await this.usuarioService.create(dto);
+    const { clave: _, ...usuarioSinClave } = usuarioCreado.toObject();
+    return usuarioSinClave;
   }
 
   async login(correo: string, clave: string) {
@@ -53,5 +55,16 @@ export class AuthService {
 
   async findById(id: string) {
     return await this.usuarioService.findById(id);
+  }
+
+  async refrescar(usuario: any) {
+    const payload = {
+      sub: usuario.sub,
+      email: usuario.email,
+      perfil: usuario.perfil,
+    };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }

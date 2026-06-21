@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Param,
   HttpCode,
   UseGuards,
   Request,
@@ -42,5 +41,18 @@ export class AuthController {
   @Get('perfil')
   perfil(@Request() req) {
     return this.authService.findById(req.user.sub);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('autorizar')
+  @HttpCode(200)
+  autorizar(@Request() req) {
+    return this.authService.findById(req.user.sub);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('refrescar')
+  refrescar(@Request() req) {
+    return this.authService.refrescar(req.user);
   }
 }

@@ -73,4 +73,10 @@ export class PublicacionesController {
       req.user.perfil,
     );
   }
+
+  @UseGuards(AuthGuard)
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.publicacionService.findOne(id);
+  }
 }

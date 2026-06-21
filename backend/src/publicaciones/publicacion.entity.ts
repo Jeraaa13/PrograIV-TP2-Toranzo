@@ -23,6 +23,10 @@ export class Publicacion {
   baja: boolean;
   @Prop({ default: Date.now })
   fechaPublicacion: Date;
+  @Prop({ default: 0 })
+  cantidadMeGustas: number;
+  @Prop({ default: 0 })
+  cantidadComentarios: number;
 }
 
 export const PublicacionSchema = SchemaFactory.createForClass(Publicacion);

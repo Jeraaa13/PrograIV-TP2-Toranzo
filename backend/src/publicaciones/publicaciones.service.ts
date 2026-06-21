@@ -70,6 +70,7 @@ export class PublicacionesService {
     const usuarioYaLikeo = publicacion.meGustas.includes(idUsuario);
     if (usuarioYaLikeo) throw new BadRequestException('Ya diste me gusta');
     publicacion.meGustas.push(idUsuario);
+    publicacion.cantidadMeGustas = publicacion.meGustas.length;
     await publicacion.save();
     return publicacion;
   }
@@ -82,6 +83,7 @@ export class PublicacionesService {
     publicacion.meGustas = publicacion.meGustas.filter(
       (id) => id !== idUsuario,
     );
+    publicacion.cantidadMeGustas = publicacion.meGustas.length;
     await publicacion.save();
     return publicacion;
   }
@@ -100,6 +102,20 @@ export class PublicacionesService {
       throw new ForbiddenException('no hay permisos suficientes');
     publicacion.baja = true;
     await publicacion.save();
+    return publicacion;
+  }
+
+  async findOne(id: string) {
+    const publicacion = await this.publicacionModel
+      .findById(id)
+      .populate(
+        'publicadaPor',
+        'nombre apellido correo nombreUsuario imagenPerfil perfil',
+      );
+
+    if (!publicacion || publicacion.baja) {
+      throw new NotFoundException('Publicación no encontrada');
+    }
     return publicacion;
   }
 }

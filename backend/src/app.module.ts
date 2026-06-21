@@ -8,6 +8,7 @@ import { PublicacionesModule } from './publicaciones/publicaciones.module';
 import { AutenticacionModule } from './auth/auth.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { env } from 'process';
+import { ComentariosModule } from './comentarios/comentarios.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { env } from 'process';
     PublicacionesModule,
     AutenticacionModule,
     UsuariosModule,
+    ComentariosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
