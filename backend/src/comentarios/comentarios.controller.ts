@@ -12,10 +12,29 @@ import {
 import { ComentariosService } from './comentarios.service';
 import { AuthGuard } from '../guards/auth/auth.guard';
 import { CrearComentarioDto } from './comentario.dto';
+import { AdminGuard } from '../guards/admin/admin.guard';
 
 @Controller('')
 export class ComentariosController {
   constructor(private readonly comentariosService: ComentariosService) {}
+
+  @UseGuards(AdminGuard)
+  @Get('comentarios/estadisticas')
+  comentariosPorDia(
+    @Query('desde') desde: string,
+    @Query('hasta') hasta: string,
+  ) {
+    return this.comentariosService.comentariosPorDia(desde, hasta);
+  }
+
+  @UseGuards(AdminGuard)
+  @Get('comentarios/estadisticas/publicaciones')
+  comentariosPorPublicacion(
+    @Query('desde') desde: string,
+    @Query('hasta') hasta: string,
+  ) {
+    return this.comentariosService.comentariosPorPublicacion(desde, hasta);
+  }
 
   @UseGuards(AuthGuard)
   @Post('publicaciones/:idPublicacion/comentarios')

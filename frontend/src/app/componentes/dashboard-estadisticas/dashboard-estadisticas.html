@@ -1,0 +1,19 @@
+<h2>Estadísticas</h2>
+
+<div class="filtro-fechas">
+  <label>Desde: <input type="date" [(ngModel)]="desde" /> </label>
+  <label>Hasta: <input type="date" [(ngModel)]="hasta" /> </label>
+  <button (click)="cargarGrafico()">Filtrar</button>
+</div>
+
+<div class="grafico">
+  <canvas #graficoPublicaciones></canvas>
+</div>
+
+<div class="grafico">
+  <canvas #graficoComentarios></canvas>
+</div>
+
+<div class="grafico">
+  <canvas #graficoComentariosPublicaciones></canvas>
+</div>

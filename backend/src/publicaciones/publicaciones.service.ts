@@ -118,4 +118,43 @@ export class PublicacionesService {
     }
     return publicacion;
   }
+
+  async publicacionesPorUsuario(desde: string, hasta: string) {
+    return await this.publicacionModel.aggregate([
+      {
+        $match: {
+          fechaPublicacion: {
+            $gte: new Date(desde),
+            $lte: new Date(hasta),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: '$publicadaPor',
+          cantidadPublicaciones: { $sum: 1 },
+        },
+      },
+      {
+        $lookup: {
+          from: 'usuarios',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'usuario',
+          pipeline: [{ $project: { nombreUsuario: 1, imagenPerfil: 1 } }],
+        },
+      },
+      {
+        $project: {
+          cantidadPublicaciones: 1,
+          nombreUsuario: { $arrayElemAt: ['$usuario.nombreUsuario', 0] },
+        },
+      },
+      {
+        $sort: {
+          cantidadPublicaciones: -1,
+        },
+      },
+    ]);
+  }
 }

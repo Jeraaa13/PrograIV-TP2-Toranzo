@@ -3,7 +3,12 @@
     <input [(ngModel)]="titulo" placeholder="Título" />
     <textarea [(ngModel)]="descripcion" placeholder="¿Qué estás pensando?"></textarea>
     <input type="file" (change)="onFileSelected($event)" #inputFile />
-    <button (click)="crear()" [disabled]="enviando">Publicar</button>
+    <button
+      (click)="crear()"
+      [disabled]="enviando || titulo.trim() === '' || descripcion.trim() === ''"
+    >
+      Publicar
+    </button>
   </div>
 
   <div class="filtros">

@@ -4,10 +4,11 @@ import { inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../servicios/auth';
 import Swal from 'sweetalert2';
+import { AutoFocus } from '../../directivas/autofocus';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, AutoFocus],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -38,6 +39,7 @@ export class Login {
     this.auth.login(usuario.correo, usuario.clave).subscribe({
       next: (respuesta) => {
         this.auth.guardarToken(respuesta.access_token);
+        this.auth.guardarPerfil(respuesta.usuario.perfil);
         Swal.fire({
           title: 'Logeado!',
           text: 'Usted ha sido logeado correctamente!',

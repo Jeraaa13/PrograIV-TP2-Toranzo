@@ -57,4 +57,64 @@ export class ComentariosService {
     await comentario.save();
     return comentario;
   }
+
+  async comentariosPorDia(desde: string, hasta: string) {
+    return await this.comentarioModel.aggregate([
+      {
+        $match: {
+          fecha: {
+            $gte: new Date(desde),
+            $lte: new Date(hasta),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: '%Y-%m-%d', date: '$fecha' },
+          },
+          cantidad: { $sum: 1 },
+        },
+      },
+      {
+        $sort: {
+          _id: 1,
+        },
+      },
+    ]);
+  }
+
+  async comentariosPorPublicacion(desde: string, hasta: string) {
+    return await this.comentarioModel.aggregate([
+      {
+        $match: {
+          fecha: {
+            $gte: new Date(desde),
+            $lte: new Date(hasta),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: '$publicacion',
+          cantidad: { $sum: 1 },
+        },
+      },
+      {
+        $lookup: {
+          from: 'publicacions',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'publicacion',
+          pipeline: [{ $project: { titulo: 1 } }],
+        },
+      },
+      {
+        $project: {
+          cantidad: 1,
+          titulo: { $arrayElemAt: ['$publicacion.titulo', 0] },
+        },
+      },
+    ]);
+  }
 }

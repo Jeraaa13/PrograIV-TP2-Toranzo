@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+h2 {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.filtro-fechas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  color: #dddddd;
+}
+
+.filtro-fechas input {
+  background-color: #1a1a1a;
+  border: 1px solid #383838;
+  border-radius: 6px;
+  color: #ffffff;
+  padding: 6px 10px;
+}
+
+.filtro-fechas button {
+  background-color: #a01919;
+  color: #ffffff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filtro-fechas button:hover {
+  background-color: #c0392b;
+}
+
+.grafico {
+  background-color: #242424;
+  border: 1px solid #383838;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  height: 350px;
+}

@@ -14,6 +14,7 @@ export class Auth {
   router = inject(Router);
   autenticado = signal(false);
   timeoutSesion: any;
+  timeoutExpiracion: any;
 
   constructor() {
     if (this.obtenerToken()) {
@@ -66,19 +67,38 @@ export class Auth {
     this.iniciarContador();
   }
 
+  guardarPerfil(perfil: string) {
+    localStorage.setItem('perfil', perfil);
+  }
+
+  esAdmin() {
+    return localStorage.getItem('perfil') === 'administrador';
+  }
+
   iniciarContador() {
     clearTimeout(this.timeoutSesion);
+    clearTimeout(this.timeoutExpiracion);
     this.timeoutSesion = setTimeout(
       () => {
         this.mostrarModalSesion();
       },
-      10 * 60 * 1000,
+      1000 * 60 * 10,
+    );
+
+    this.timeoutExpiracion = setTimeout(
+      () => {
+        Swal.close();
+        this.logout();
+      },
+      1000 * 60 * 15,
     );
   }
 
   logout() {
     clearTimeout(this.timeoutSesion);
+    clearTimeout(this.timeoutExpiracion);
     localStorage.removeItem('token');
+    localStorage.removeItem('perfil');
     this.autenticado.set(false);
     this.router.navigateByUrl('/login');
   }

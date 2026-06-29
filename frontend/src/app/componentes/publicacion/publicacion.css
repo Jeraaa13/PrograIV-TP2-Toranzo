@@ -45,6 +45,7 @@
   font-weight: bold;
   color: #ffffff;
   font-size: 16px;
+  overflow-wrap: break-word;
 }
 
 .texto {
@@ -52,12 +53,14 @@
   font-weight: bold;
   color: #ffffff;
   margin-bottom: 8px;
+  overflow-wrap: break-word;
 }
 
 .descripcion {
   font-size: 15px;
   color: #dddddd;
   margin-bottom: 12px;
+  overflow-wrap: break-word;
 }
 
 .imagen-pub {

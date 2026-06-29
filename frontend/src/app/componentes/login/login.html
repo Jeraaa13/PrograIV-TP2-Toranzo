@@ -10,7 +10,13 @@
         <div class="col">
           <div class="form-group">
             <label class="form-label" for="correo">Correo</label>
-            <input type="email" class="form-control" id="correo" formControlName="correo" />
+            <input
+              type="email"
+              class="form-control"
+              id="correo"
+              formControlName="correo"
+              appAutoFocus
+            />
             @if (correo?.invalid && (correo?.dirty || correo?.touched)) {
               <small class="text-danger">
                 @if (correo?.hasError('required')) {

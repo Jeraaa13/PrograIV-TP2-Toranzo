@@ -16,7 +16,9 @@
     <h3>Comentarios</h3>
     <div class="form-comentario">
       <textarea [(ngModel)]="nuevoComentario" placeholder="Que estas pensando?"></textarea>
-      <button (click)="comentar()" [disabled]="enviando">Enviar</button>
+      <button (click)="comentar()" [disabled]="enviando || nuevoComentario.trim() === ''">
+        Enviar
+      </button>
     </div>
     @for (com of comentarios(); track com._id) {
       <div class="comentario">

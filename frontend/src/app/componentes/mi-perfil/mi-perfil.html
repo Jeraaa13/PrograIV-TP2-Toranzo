@@ -34,13 +34,16 @@
     <div class="mis-publicaciones">
       <h3>Mis últimas publicaciones</h3>
       @for (pub of misPublicaciones(); track pub._id) {
-        <div class="card">
+        <div class="card" [routerLink]="['/publicacion', pub._id]">
           <div class="texto">{{ pub.titulo }}</div>
           <div class="descripcion">{{ pub.descripcion }}</div>
           @if (pub.imagenUrl) {
             <img class="imagen-pub" [src]="pub.imagenUrl" />
           }
-          <div class="boton-like">{{ pub.meGustas.length }} me gusta</div>
+          <div class="boton-like">{{ pub.meGustas.length }} <i class="bi bi-heart"></i></div>
+          <div class="boton-comentarios">
+            {{ pub.cantidadComentarios }} <i class="bi bi-chat"></i>
+          </div>
         </div>
       }
     </div>

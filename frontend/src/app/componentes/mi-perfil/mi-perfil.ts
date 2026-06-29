@@ -4,10 +4,11 @@ import { Usuario } from '../../interfaces/usuario';
 import { publicacionesService } from '../../servicios/publicaciones-service';
 import { Publicacion } from '../../interfaces/publicacion';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-mi-perfil',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './mi-perfil.html',
   styleUrl: './mi-perfil.css',
 })

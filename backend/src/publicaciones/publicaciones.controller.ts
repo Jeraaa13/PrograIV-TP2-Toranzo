@@ -16,6 +16,7 @@ import { AuthGuard } from '../guards/auth/auth.guard';
 import { CrearPublicacionDto } from './publicacion.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
+import { AdminGuard } from '../guards/admin/admin.guard';
 
 @Controller('publicaciones')
 export class PublicacionesController {
@@ -72,6 +73,15 @@ export class PublicacionesController {
       req.user.sub,
       req.user.perfil,
     );
+  }
+
+  @UseGuards(AdminGuard)
+  @Get('estadisticas')
+  async publicacionesPorUsuario(
+    @Query('desde') desde: string,
+    @Query('hasta') hasta: string,
+  ) {
+    return this.publicacionService.publicacionesPorUsuario(desde, hasta);
   }
 
   @UseGuards(AuthGuard)

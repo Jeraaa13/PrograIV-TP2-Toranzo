@@ -30,6 +30,14 @@
   background-color: #242424;
   padding: 16px;
   margin-bottom: 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mis-publicaciones .card:hover {
+  border-color: #a01919;
 }
 
 .mis-publicaciones .texto {
@@ -53,9 +61,12 @@
   margin-bottom: 12px;
 }
 
-.mis-publicaciones .boton-like {
+.mis-publicaciones .boton-like,
+.mis-publicaciones .boton-comentarios {
   color: #aaaaaa;
   font-size: 14px;
+  display: inline-block;
+  margin-right: 16px;
 }
 
 .fotoUsuario {

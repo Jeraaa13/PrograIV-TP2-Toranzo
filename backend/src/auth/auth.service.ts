@@ -17,7 +17,11 @@ export class AuthService {
     private cloudinaryService: CloudinaryService,
   ) {}
 
-  async registro(dto: registroDTO, file?: Express.Multer.File) {
+  async registro(
+    dto: registroDTO,
+    file?: Express.Multer.File,
+    perfil?: string,
+  ) {
     const usuario = await this.usuarioService.findOne(dto.correo);
     if (usuario) throw new ConflictException('El correo ya está registrado');
 
@@ -28,7 +32,8 @@ export class AuthService {
 
     const clave = dto.clave;
     dto.clave = await bcrypt.hash(clave, 10);
-    const usuarioCreado = await this.usuarioService.create(dto);
+    const datosUsuario = { ...dto, perfil: perfil ?? 'usuario' };
+    const usuarioCreado = await this.usuarioService.create(datosUsuario);
     const { clave: _, ...usuarioSinClave } = usuarioCreado.toObject();
     return usuarioSinClave;
   }
@@ -36,6 +41,8 @@ export class AuthService {
   async login(correo: string, clave: string) {
     const usuario = await this.usuarioService.findOne(correo);
     if (!usuario) throw new UnauthorizedException('Credenciales invalidas');
+
+    if (usuario.baja) throw new UnauthorizedException('Usuario deshabilitado');
 
     if (await bcrypt.compare(clave, usuario.clave)) {
       const payload = {

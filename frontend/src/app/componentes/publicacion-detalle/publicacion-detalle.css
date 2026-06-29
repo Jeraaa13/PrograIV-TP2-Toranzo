@@ -38,18 +38,21 @@
   font-weight: bold;
   color: #ffffff;
   font-size: 16px;
+  overflow-wrap: break-word;
 }
 
 .detalle h2 {
   color: #ffffff;
   font-size: 24px;
   margin-bottom: 8px;
+  overflow-wrap: break-word;
 }
 
 .detalle p {
   color: #dddddd;
   font-size: 16px;
   margin-bottom: 16px;
+  overflow-wrap: break-word;
 }
 
 .imagen-grande {
@@ -121,12 +124,14 @@
 .comentario strong {
   color: #ffffff;
   font-size: 14px;
+  overflow-wrap: break-word;
 }
 
 .comentario p {
   color: #dddddd;
   font-size: 15px;
   margin: 4px 0 0 0;
+  overflow-wrap: break-word;
 }
 
 .comentario small {

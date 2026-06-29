@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" appResaltar>
   <div class="card-body">
     <div class="header">
       <div class="info-autor">
@@ -7,24 +7,25 @@
         </div>
         <div class="nombreUsuario">{{ publicacion().publicadaPor.nombreUsuario }}</div>
       </div>
-      @if (publicacion().publicadaPor._id === miId()) {
+      @if (publicacion().publicadaPor._id === miId() || auth.esAdmin()) {
         <button class="boton-eliminar" (click)="onEliminar()">
           <i class="bi bi-trash"></i>
         </button>
       }
     </div>
     <div class="texto">{{ publicacion().titulo }}</div>
-    <div class="descripcion">{{ publicacion().descripcion }}</div>
+    <div class="descripcion">{{ publicacion().descripcion | truncar: 80 }}</div>
     @if (publicacion().imagenUrl) {
       <img class="imagen-pub" [src]="publicacion().imagenUrl" />
     }
     <div class="botones-publicacion">
       <button class="boton-like" [class.liked]="yaDioLike()" (click)="onLike()">
         <i class="bi" [class.bi-heart-fill]="yaDioLike()" [class.bi-heart]="!yaDioLike()"></i>
-        {{ publicacion().meGustas.length }}
+        {{ publicacion().meGustas.length | cantidad: 'me gusta' : 'me gustas' }}
       </button>
       <a class="boton-comentarios" [routerLink]="['/publicacion', publicacion()._id]">
-        <i class="bi bi-chat"></i> {{ publicacion().cantidadComentarios }}
+        <i class="bi bi-chat"></i>
+        {{ publicacion().cantidadComentarios | cantidad: 'comentario' : 'comentarios' }}
       </a>
     </div>
   </div>

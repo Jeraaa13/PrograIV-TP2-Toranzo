@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Usuario } from './usuario.entity';
@@ -22,5 +22,25 @@ export class UsuariosService {
 
   async findById(id: string) {
     return await this.usuarioModel.findById(id).select('-clave');
+  }
+
+  async findAll() {
+    return await this.usuarioModel.find().select('-clave');
+  }
+
+  async bajaUsuario(id: string) {
+    const usuario = await this.usuarioModel.findById(id).select('-clave');
+    if (!usuario) throw new NotFoundException('Usuario no encontrado');
+    usuario.baja = true;
+    await usuario.save();
+    return usuario;
+  }
+
+  async activarUsuario(id: string) {
+    const usuario = await this.usuarioModel.findById(id).select('-clave');
+    if (!usuario) throw new NotFoundException('Usuario no encontrado');
+    usuario.baja = false;
+    await usuario.save();
+    return usuario;
   }
 }

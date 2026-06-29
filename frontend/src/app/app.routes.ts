@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth-guard';
+import { adminGuard } from './guards/admin-guard';
 
 export const routes: Routes = [
   { path: '', loadComponent: () => import('./componentes/spinner/spinner').then((m) => m.Spinner) },
@@ -28,6 +29,22 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./componentes/publicacion-detalle/publicacion-detalle').then(
         (m) => m.PublicacionDetalle,
+      ),
+  },
+  {
+    path: 'usuarios',
+    canActivate: [adminGuard],
+    loadComponent: () =>
+      import('./componentes/dashboard-usuarios/dashboard-usuarios').then(
+        (m) => m.DashboardUsuarios,
+      ),
+  },
+  {
+    path: 'estadisticas',
+    canActivate: [adminGuard],
+    loadComponent: () =>
+      import('./componentes/dashboard-estadisticas/dashboard-estadisticas').then(
+        (m) => m.DashboardEstadisticas,
       ),
   },
 ];
