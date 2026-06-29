@@ -15,6 +15,9 @@
       <a routerLink="/mi-perfil" routerLinkActive="active"><i class="bi bi-person"></i>Mi perfil</a>
       @if (auth.esAdmin()) {
         <a routerLink="/usuarios" routerLinkActive="active"><i class="bi bi-people"></i>Usuarios</a>
+        <a routerLink="/estadisticas" routerLinkActive="active"
+          ><i class="bi bi-bar-chart"></i>Estadísticas</a
+        >
       }
       <a class="logout" style="cursor: pointer" (click)="auth.logout()"
         ><i class="bi bi-box-arrow-right"></i>Cerrar sesión</a
